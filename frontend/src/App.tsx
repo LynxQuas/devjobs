@@ -8,12 +8,11 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 // Dynamically import components
 import AppLayout from "./pages/AppLayout";
 import Admin from "./pages/Admin";
+import PostJob from "./components/PostJob";
+import EditPage from "./pages/EditPage";
 
 const Home = React.lazy(() => import("./pages/Home"));
 const JobDetailsPage = React.lazy(() => import("./pages/JobDetailsPage"));
-
-const PostJob = React.lazy(() => import("./components/PostJob"));
-const EditPage = React.lazy(() => import("./pages/EditPage"));
 
 const queryClient = new QueryClient();
 
@@ -21,27 +20,17 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <Suspense fallback={<div>Loading AppLayout...</div>}>
-          <AppLayout />
-        </Suspense>
-      ),
+      element: <AppLayout />,
       children: [
         {
           path: "/admin/login",
-          element: (
-            <Suspense fallback={<div>Loading Admin...</div>}>
-              <Admin />
-            </Suspense>
-          ),
+          element: <Admin />,
         },
         {
           path: "/admin/create",
           element: (
             <ProtectedRoute>
-              <Suspense fallback={<div>Loading PostJob...</div>}>
-                <PostJob />
-              </Suspense>
+              <PostJob />
             </ProtectedRoute>
           ),
         },
@@ -65,9 +54,7 @@ const App = () => {
           path: "/:id/edit",
           element: (
             <ProtectedRoute>
-              <Suspense fallback={<div>Loading EditPage...</div>}>
-                <EditPage />
-              </Suspense>
+              <EditPage />
             </ProtectedRoute>
           ),
         },
