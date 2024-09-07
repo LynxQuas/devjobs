@@ -9,6 +9,7 @@ interface Props {
 
 const JobDetailHeader = ({ companyName, website, logo }: Props) => {
   const { isDark } = useTheme();
+
   return (
     <div
       className={clsx(
@@ -29,11 +30,16 @@ const JobDetailHeader = ({ companyName, website, logo }: Props) => {
           >
             {companyName}
           </h3>
-          <p className="text-gray-400">{website}</p>
+          <p className="text-gray-400 md:block hidden">{website}</p>
         </div>
-        <button className="bg-violet-200 md:px-6 p-2 rounded-md md:py-3 text-violet-500 font-bold hidden md:block">
+        <a
+          href={website}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-violet-200 md:px-6 p-2 rounded-md md:py-3 text-violet-500 font-bold hidden md:block"
+        >
           Company Site
-        </button>
+        </a>
       </div>
     </div>
   );

@@ -1,14 +1,17 @@
+import React, { Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AppLayout from "./pages/AppLayout";
 import ThemeContextProvider from "./context/ThemContext";
-import Home from "./pages/Home";
-import JobDetailsPage from "./pages/JobDetailsPage";
-import Admin from "./pages/Admin";
-import PostJob from "./components/PostJob";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import EditPage from "./pages/EditPage";
 import AuthContextProvider from "./context/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
+
+// Dynamically import components
+const AppLayout = React.lazy(() => import("./pages/AppLayout"));
+const Home = React.lazy(() => import("./pages/Home"));
+const JobDetailsPage = React.lazy(() => import("./pages/JobDetailsPage"));
+const Admin = React.lazy(() => import("./pages/Admin"));
+const PostJob = React.lazy(() => import("./components/PostJob"));
+const EditPage = React.lazy(() => import("./pages/EditPage"));
 
 const queryClient = new QueryClient();
 
@@ -16,24 +19,53 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <AppLayout />,
+      element: (
+        <Suspense fallback={<div>Loading AppLayout...</div>}>
+          <AppLayout />
+        </Suspense>
+      ),
       children: [
-        { path: "/admin/login", element: <Admin /> },
+        {
+          path: "/admin/login",
+          element: (
+            <Suspense fallback={<div>Loading Admin...</div>}>
+              <Admin />
+            </Suspense>
+          ),
+        },
         {
           path: "/admin/create",
           element: (
             <ProtectedRoute>
-              <PostJob />
+              <Suspense fallback={<div>Loading PostJob...</div>}>
+                <PostJob />
+              </Suspense>
             </ProtectedRoute>
           ),
         },
-        { path: "/", element: <Home /> },
-        { path: "/:id", element: <JobDetailsPage /> },
+        {
+          path: "/",
+          element: (
+            <Suspense fallback={<div>Loading Home...</div>}>
+              <Home />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/:id",
+          element: (
+            <Suspense fallback={<div>Loading JobDetailsPage...</div>}>
+              <JobDetailsPage />
+            </Suspense>
+          ),
+        },
         {
           path: "/:id/edit",
           element: (
             <ProtectedRoute>
-              <EditPage />
+              <Suspense fallback={<div>Loading EditPage...</div>}>
+                <EditPage />
+              </Suspense>
             </ProtectedRoute>
           ),
         },
