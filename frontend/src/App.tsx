@@ -6,7 +6,8 @@ import AuthContextProvider from "./context/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 
 // Dynamically import components
-const AppLayout = React.lazy(() => import("./pages/AppLayout"));
+import AppLayout from "./pages/AppLayout";
+
 const Home = React.lazy(() => import("./pages/Home"));
 const JobDetailsPage = React.lazy(() => import("./pages/JobDetailsPage"));
 const Admin = React.lazy(() => import("./pages/Admin"));
