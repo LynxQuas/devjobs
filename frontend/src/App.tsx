@@ -7,10 +7,11 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 
 // Dynamically import components
 import AppLayout from "./pages/AppLayout";
+import Admin from "./pages/Admin";
 
 const Home = React.lazy(() => import("./pages/Home"));
 const JobDetailsPage = React.lazy(() => import("./pages/JobDetailsPage"));
-const Admin = React.lazy(() => import("./pages/Admin"));
+
 const PostJob = React.lazy(() => import("./components/PostJob"));
 const EditPage = React.lazy(() => import("./pages/EditPage"));
 
