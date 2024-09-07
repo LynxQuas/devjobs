@@ -1,7 +1,8 @@
 import { Job } from "../type";
+const API = import.meta.env.VITE_API;
 
 export const createJob = async (data: Job) => {
-  const res = await fetch("http://localhost:3000/api/jobs", {
+  const res = await fetch(`${API}/jobs`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -18,9 +19,7 @@ export const createJob = async (data: Job) => {
 
 export const getAllJobs = async (queryString: string = "", limit: number) => {
   console.log(queryString);
-  const res = await fetch(
-    `http://localhost:3000/api/jobs/?limit=${limit}&${queryString}`
-  );
+  const res = await fetch(`${API}/jobs?limit=${limit}&${queryString}`);
   if (res.ok) {
     return res.json();
   }
@@ -29,7 +28,7 @@ export const getAllJobs = async (queryString: string = "", limit: number) => {
 };
 
 export const getJobDetails = async (id: string | undefined) => {
-  const res = await fetch(`http://localhost:3000/api/jobs/${id}`);
+  const res = await fetch(`${API}/jobs/${id}`);
   if (res.ok) {
     return res.json();
   }
@@ -39,7 +38,7 @@ export const getJobDetails = async (id: string | undefined) => {
 
 export const deleteJob = async (id: string) => {
   console.log(id);
-  const res = await fetch(`http://localhost:3000/api/jobs/${id}`, {
+  const res = await fetch(`${API}/jobs/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json", // Add headers if required
@@ -53,7 +52,7 @@ export const deleteJob = async (id: string) => {
 
 export const updateJob = async (id: string | undefined, data: Job) => {
   console.log(id);
-  const res = await fetch(`http://localhost:3000/api/jobs/${id}`, {
+  const res = await fetch(`${API}/jobs/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json", // Add headers if required
@@ -70,7 +69,7 @@ export const login = async (userData: {
   username: string;
   password: string;
 }) => {
-  const res = await fetch(`http://localhost:3000/api/user/`, {
+  const res = await fetch(`${API}/user`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json", // Add headers if required
